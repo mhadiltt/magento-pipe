@@ -59,7 +59,7 @@ spec:
         DOCKERHUB_CREDS = 'dockerhub-pass'          // ✅ DockerHub credentials ID
         ARGOCD_CREDS = 'argocd-jenkins-creds'       // ✅ Updated to your actual ArgoCD credential ID
         ARGOCD_SERVER = "argocd-server.argocd.svc.cluster.local:443"
-        ARGOCD_APP_NAME = "magento-app"
+        ARGOCD_APP_NAME = "magento"
     }
 
     stages {
