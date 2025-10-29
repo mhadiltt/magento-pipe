@@ -1,11 +1,13 @@
-php:
+xphp:
   image:
     repository: hadil01/magento-pipe-php
     tag: "latest"
+  replicas: 1
   port: 9000
 
 nginx:
   image:
     repository: hadil01/magento-pipe-nginx
     tag: "latest"
+  replicas: 1
   port: 80
