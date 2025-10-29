@@ -24,6 +24,7 @@ spec:
           mountPath: /var/run
         - name: workspace-volume
           mountPath: /home/jenkins/agent
+          readOnly: false
 
     - name: argocd
       image: hadil01/argocd-cli:latest
@@ -52,13 +53,11 @@ spec:
     }
 
     environment {
-        IMAGE_TAG = "${BUILD_NUMBER}"
-        DOCKERHUB_USER = 'hadil01'
-        APP_NAME = 'magento-pipe'
-        PHP_IMAGE_REPO = "${DOCKERHUB_USER}/${APP_NAME}-php"
-        NGINX_IMAGE_REPO = "${DOCKERHUB_USER}/${APP_NAME}-nginx"
-        DOCKERHUB_CREDS = 'dockerhub-cred'
-        ARGOCD_CREDS = 'argocd-cred'
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
+        PHP_IMAGE_REPO = "hadil01/magento-pipe-php"
+        NGINX_IMAGE_REPO = "hadil01/magento-pipe-nginx"
+        DOCKERHUB_CREDS = 'dockerhub-pass'      // ✅ matches your DockerHub credentials ID
+        ARGOCD_CREDS = 'argocd-cred'            // ✅ your ArgoCD credentials ID
         ARGOCD_SERVER = "argocd-server.argocd.svc.cluster.local:443"
         ARGOCD_APP_NAME = "magento-app"
     }
@@ -67,10 +66,7 @@ spec:
 
         stage('📥 Checkout Code') {
             steps {
-                container('docker') {
-                    git branch: 'main',
-                        url: 'https://github.com/mhadiltt/magento-pipe.git'
-                }
+                checkout scm
             }
         }
 
@@ -149,10 +145,10 @@ spec:
 
     post {
         success {
-            echo "✅ Build and ArgoCD deployment completed successfully!"
+            echo "✅ Magento Build & ArgoCD Deployment completed successfully!"
         }
         failure {
-            echo "❌ Pipeline failed! Check logs for details."
+            echo "❌ Pipeline failed! Check Jenkins logs for details."
         }
     }
 }
