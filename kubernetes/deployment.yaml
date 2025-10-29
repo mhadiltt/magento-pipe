@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: php
-          image: {{ .Values.php.image }}:{{ .Values.php.tag }}
+          image: {{ .Values.php.image.repository }}:{{ .Values.php.image.tag }}
           ports:
             - containerPort: {{ .Values.php.port }}
         - name: nginx
-          image: {{ .Values.nginx.image }}:{{ .Values.nginx.tag }}
+          image: {{ .Values.nginx.image.repository }}:{{ .Values.nginx.image.tag }}
           ports:
             - containerPort: {{ .Values.nginx.port }}
