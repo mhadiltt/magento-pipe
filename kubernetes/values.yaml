@@ -1,0 +1,9 @@
+php:
+  image: hadil01/magento-pipe-php
+  tag: "latest"
+  port: 9000
+
+nginx:
+  image: hadil01/magento-pipe-nginx
+  tag: "latest"
+  port: 80
